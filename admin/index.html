@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="referrer" content="no-referrer">
+<title>Maison Belle Admin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#faf3ea;--bg2:#f4e4df;--card:#fffaf4;--gold:#9a7436;--gold-l:#d8bd8a;--ink:#43302a;--mute:#7a6358;--line:rgba(67,48,42,.18);--btn:#43302a;--btn-t:#faf3ea;--ok:#1f6b45;--bad:#b3382f;--serif:"Cormorant Garamond",Georgia,serif;--sans:"Figtree",system-ui,-apple-system,"Segoe UI",sans-serif}
+@media (prefers-color-scheme:dark){:root{--bg:#241a16;--bg2:#2e211c;--card:#33261f;--gold:#d8bd8a;--gold-l:#b8924f;--ink:#f3e6d8;--mute:#c4ad9d;--line:rgba(243,230,216,.2);--btn:#d8bd8a;--btn-t:#241a16;--ok:#7fd0a0;--bad:#ff9e94}}
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font:400 1rem/1.6 var(--sans);min-height:100vh;padding:env(safe-area-inset-top,0px) 0 env(safe-area-inset-bottom,0px);-webkit-font-smoothing:antialiased}
+h1,h2{font-family:var(--serif);font-weight:500;margin:0;line-height:1.1}
+h1{font-size:clamp(2rem,5vw,2.8rem)}
+.wrap{width:min(860px,100% - 2rem);margin-inline:auto}
+.top{border-bottom:1px solid var(--line);background:var(--bg)}
+.top .wrap{display:flex;justify-content:space-between;align-items:center;gap:1rem;min-height:68px;flex-wrap:wrap}
+.logo{font:500 1.7rem var(--serif);text-decoration:none;color:inherit}.logo i{color:var(--gold)}
+.logo small{font:500 .78rem var(--sans);color:var(--mute);margin-left:.6rem;letter-spacing:.02em}
+.who{display:flex;align-items:center;gap:.8rem;font-size:.9rem;color:var(--mute)}
+.who[hidden],[hidden]{display:none!important}
+.btn{display:inline-flex;align-items:center;justify-content:center;padding:.8rem 1.6rem;border-radius:999px;border:1px solid var(--btn);background:var(--btn);color:var(--btn-t);font:500 .96rem var(--sans);cursor:pointer;text-decoration:none;transition:background .3s,color .3s,transform .3s,box-shadow .3s}
+.btn:hover:not(:disabled){background:transparent;color:var(--ink);transform:translateY(-1px)}
+.btn:disabled{opacity:.55;cursor:not-allowed}
+.btn.ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+.btn.ghost:hover:not(:disabled){border-color:var(--gold);color:var(--gold)}
+.btn.sm{padding:.45rem 1rem;font-size:.85rem}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+main{padding:clamp(2rem,6vw,4rem) 0 6rem}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:clamp(1.4rem,4vw,2.4rem);box-shadow:0 28px 50px -38px rgba(67,48,42,.6)}
+.narrow{max-width:440px;margin:0 auto}
+.lead{color:var(--mute);margin:.6rem 0 1.6rem}
+.fld{display:grid;gap:.35rem;margin-bottom:1.2rem}
+label{font-size:.9rem;font-weight:500}
+.hint{font-size:.82rem;color:var(--mute)}
+input,textarea{width:100%;font:inherit;padding:.8rem .9rem;border:1px solid var(--line);border-radius:6px;background:var(--bg);color:var(--ink);transition:border-color .3s,box-shadow .3s}
+textarea{resize:vertical;min-height:96px}
+input:focus,textarea:focus{outline:0;border-color:var(--gold);box-shadow:0 0 0 3px rgba(184,146,79,.25)}
+.bad input,.bad textarea{border-color:var(--bad)}
+.err{font-size:.82rem;color:var(--bad)}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:0 1.2rem}
+fieldset{border:0;padding:0;margin:0 0 1.2rem}
+legend{font:500 1.55rem var(--serif);color:var(--gold);padding:0;margin-bottom:1rem;width:100%;border-bottom:1px solid var(--line)}
+.bar{position:sticky;bottom:0;margin-top:1.5rem;display:flex;gap:.8rem;align-items:center;flex-wrap:wrap;padding:1rem 0 calc(1rem + env(safe-area-inset-bottom,0px));background:var(--card);border-top:1px solid var(--line)}
+.status{font-size:.92rem;flex:1 1 220px}
+.status.ok{color:var(--ok)}.status.bad{color:var(--bad)}
+.notice{padding:.9rem 1.1rem;border-left:3px solid var(--gold);background:var(--bg2);border-radius:0 6px 6px 0;font-size:.93rem;margin-bottom:1.5rem}
+.meta{color:var(--mute);font-size:.88rem;margin-top:.3rem}
+@media(max-width:620px){.cols{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap">
+ <a class="logo" href="../">Maison <i>Belle</i><small>Admin</small></a>
+ <div class="who" id="who" hidden><span id="whoEmail"></span><a class="btn sm ghost" href="../" target="_blank" rel="noopener">View website</a><button class="btn sm ghost" id="out" type="button">Sign out</button></div>
+</div></header>
+
+<main><div class="wrap">
+
+ <section class="card narrow" id="loginView" hidden>
+  <h1>Owner sign in</h1>
+  <p class="lead">Sign in to edit the salon’s details shown on the website.</p>
+  <form id="loginForm" novalidate>
+   <div class="fld"><label for="email">Email</label><input id="email" type="email" autocomplete="username" required></div>
+   <div class="fld"><label for="password">Password</label><input id="password" type="password" autocomplete="current-password" required></div>
+   <p class="err" id="loginErr" role="alert"></p>
+   <button class="btn" id="loginBtn" type="submit" style="width:100%">Sign in</button>
+  </form>
+ </section>
+
+ <section id="dash" hidden>
+  <h1>Salon settings</h1>
+  <p class="meta" id="updated"></p>
+  <div class="card" style="margin-top:1.6rem">
+   <div class="notice" id="notice" hidden></div>
+   <form id="form" novalidate>
+    <fieldset>
+     <legend>Business</legend>
+     <div class="fld"><label for="business_name">Business name</label><input id="business_name" maxlength="80" required></div>
+    </fieldset>
+    <fieldset>
+     <legend>Contact</legend>
+     <div class="cols">
+      <div class="fld"><label for="phone">Phone</label><input id="phone" type="tel" maxlength="40" placeholder="+1 555 010 0199"></div>
+      <div class="fld"><label for="whatsapp_number">WhatsApp number</label><input id="whatsapp_number" type="tel" maxlength="30" placeholder="15550100199"><span class="hint">Country code first, digits only (no +). Used for the website’s WhatsApp buttons.</span></div>
+      <div class="fld"><label for="email_f">Email</label><input id="email_f" type="email" maxlength="120" placeholder="hello@example.com"></div>
+      <div class="fld"><label for="instagram_url">Instagram link</label><input id="instagram_url" type="url" maxlength="200" placeholder="https://instagram.com/yourhandle"></div>
+     </div>
+     <div class="fld"><label for="address">Address</label><textarea id="address" maxlength="300" rows="3"></textarea><span class="hint">Each new line appears as a new line on the website.</span></div>
+    </fieldset>
+    <fieldset>
+     <legend>Opening hours</legend>
+     <div class="fld"><label for="opening_hours">Hours, one line per entry</label><textarea id="opening_hours" maxlength="500" rows="5" placeholder="Tue–Fri: 10:00–19:00&#10;Saturday: 09:00–18:00&#10;Sun–Mon: Closed"></textarea><span class="hint">Write each line as “Days: hours”. Text before the first colon becomes the label.</span></div>
+    </fieldset>
+    <fieldset>
+     <legend>Booking</legend>
+     <div class="fld"><label for="booking_instructions">Booking instructions</label><textarea id="booking_instructions" maxlength="600" rows="3"></textarea><span class="hint">Shown beside the appointment form. Leave empty to hide.</span></div>
+     <div class="fld"><label for="appointment_policy">Appointment policy</label><textarea id="appointment_policy" maxlength="800" rows="4"></textarea><span class="hint">Cancellations, deposits, late arrivals. Leave empty to hide.</span></div>
+    </fieldset>
+    <div class="bar">
+     <button class="btn" id="save" type="submit">Save changes</button>
+     <button class="btn ghost" id="discard" type="button">Discard changes</button>
+     <span class="status" id="status" role="status" aria-live="polite"></span>
+    </div>
+   </form>
+  </div>
+ </section>
+
+ <p class="err" id="fatal" role="alert" hidden></p>
+</div></main>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.58.0/dist/umd/supabase.js"></script>
+<script src="../supabase-config.js"></script>
+<script>
+(function(){
+"use strict";
+var $=function(s){return document.querySelector(s)};
+var cfg=window.MAISON_BELLE_SUPABASE;
+if(!cfg||!cfg.url||!cfg.key||!window.supabase){
+ var f=$("#fatal");f.hidden=false;
+ f.textContent="The admin page could not start. Check that supabase-config.js is uploaded next to index.html and that the Supabase library loaded.";
+ return;
+}
+var sb=window.supabase.createClient(cfg.url,cfg.key);
+var TABLE="salon_settings";
+// form element id -> database column
+var MAP={business_name:"business_name",phone:"phone",whatsapp_number:"whatsapp_number",email_f:"email",instagram_url:"instagram_url",address:"address",opening_hours:"opening_hours",booking_instructions:"booking_instructions",appointment_policy:"appointment_policy"};
+var row=null,dirty=false;
+
+function view(name){
+ $("#loginView").hidden=name!=="login";
+ $("#dash").hidden=name!=="dash";
+ $("#who").hidden=name!=="dash";
+}
+function setStatus(msg,kind){var s=$("#status");s.textContent=msg||"";s.className="status"+(kind?" "+kind:"")}
+function fmt(ts){try{return new Date(ts).toLocaleString(undefined,{dateStyle:"medium",timeStyle:"short"})}catch(e){return ""}}
+function fill(){
+ Object.keys(MAP).forEach(function(id){$("#"+id).value=row[MAP[id]]==null?"":row[MAP[id]]});
+ $("#updated").textContent=row.updated_at?"Last saved "+fmt(row.updated_at):"";
+ dirty=false;setStatus("");clearErrors();
+}
+function clearErrors(){document.querySelectorAll(".fld.bad").forEach(function(n){n.classList.remove("bad");var e=n.querySelector(".err");if(e)e.remove()})}
+function flag(id,msg){
+ var fld=$("#"+id).closest(".fld");fld.classList.add("bad");
+ var e=document.createElement("span");e.className="err";e.textContent=msg;fld.appendChild(e);
+}
+
+// session
+sb.auth.getSession().then(function(r){
+ if(r.data&&r.data.session)enter(r.data.session);else view("login");
+}).catch(function(){view("login")});
+sb.auth.onAuthStateChange(function(ev){if(ev==="SIGNED_OUT"){row=null;view("login")}});
+
+// login
+$("#loginForm").addEventListener("submit",function(e){
+ e.preventDefault();
+ var em=$("#email").value.trim(),pw=$("#password").value,err=$("#loginErr"),btn=$("#loginBtn");
+ err.textContent="";
+ if(!em||!pw){err.textContent="Enter your email and password.";return}
+ btn.disabled=true;btn.textContent="Signing in…";
+ sb.auth.signInWithPassword({email:em,password:pw}).then(function(r){
+  btn.disabled=false;btn.textContent="Sign in";
+  if(r.error){err.textContent=(r.error.status===400||r.error.status===401)?"That email or password is not correct.":"Could not reach the server. Check your connection and try again.";return}
+  $("#password").value="";
+  enter(r.data.session);
+ }).catch(function(){btn.disabled=false;btn.textContent="Sign in";err.textContent="Could not reach the server. Check your connection and try again."});
+});
+$("#out").addEventListener("click",function(){
+ if(dirty&&!confirm("You have unsaved changes. Sign out anyway?"))return;
+ dirty=false;sb.auth.signOut();
+});
+
+// load
+function enter(session){
+ view("dash");
+ $("#whoEmail").textContent=session&&session.user?session.user.email:"";
+ var n=$("#notice");n.hidden=true;
+ setStatus("Loading…");
+ sb.from(TABLE).select("*").order("id",{ascending:true}).limit(1).maybeSingle().then(function(r){
+  if(r.error){setStatus("");n.hidden=false;n.textContent="Could not load settings: "+r.error.message;return}
+  if(!r.data){setStatus("");n.hidden=false;n.textContent="The salon_settings table has no row yet. In Supabase, open Table Editor → salon_settings → Insert row (you can leave the other fields empty), then reload this page.";$("#save").disabled=true;return}
+  row=r.data;$("#save").disabled=false;fill();
+ }).catch(function(){setStatus("");n.hidden=false;n.textContent="Could not reach the server."});
+}
+
+// edit tracking
+$("#form").addEventListener("input",function(){dirty=true;setStatus("Unsaved changes")});
+window.addEventListener("beforeunload",function(e){if(dirty){e.preventDefault();e.returnValue=""}});
+$("#discard").addEventListener("click",function(){if(row&&(!dirty||confirm("Discard your unsaved changes?")))fill()});
+
+// save
+$("#form").addEventListener("submit",function(e){
+ e.preventDefault();
+ if(!row)return;
+ clearErrors();
+ var v={};Object.keys(MAP).forEach(function(id){v[MAP[id]]=$("#"+id).value.trim()});
+ var bad=null;
+ function fail(id,msg){flag(id,msg);if(!bad)bad=id}
+ if(!v.business_name)fail("business_name","Please enter the business name.");
+ if(v.whatsapp_number){
+  var d=v.whatsapp_number.replace(/\D/g,"");
+  if(d.length<8||d.length>15)fail("whatsapp_number","Enter 8–15 digits including the country code.");else{v.whatsapp_number=d;$("#whatsapp_number").value=d}
+ }
+ if(v.email&&!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.email))fail("email_f","Enter a valid email address.");
+ if(v.instagram_url&&!/^https:\/\/[^\s]+$/i.test(v.instagram_url))fail("instagram_url","Use a full link starting with https://");
+ if(bad){$("#"+bad).focus();setStatus("Please fix the highlighted fields.","bad");return}
+
+ v.updated_at=new Date().toISOString();
+ var btn=$("#save");btn.disabled=true;btn.textContent="Saving…";setStatus("");
+ sb.from(TABLE).update(v).eq("id",row.id).select().then(function(r){
+  btn.disabled=false;btn.textContent="Save changes";
+  if(r.error){setStatus("Not saved: "+r.error.message,"bad");return}
+  // Row Level Security can silently block an update, returning zero rows.
+  if(!r.data||!r.data.length){setStatus("Not saved. Supabase did not allow this account to update the row. Check that you are signed in as the salon owner and that your UPDATE policy matches this account’s UUID.","bad");return}
+  row=r.data[0];fill();setStatus("Saved. The live website now shows these details.","ok");
+ }).catch(function(){btn.disabled=false;btn.textContent="Save changes";setStatus("Not saved: could not reach the server.","bad")});
+});
+})();
+</script>
+</body>
+</html>
